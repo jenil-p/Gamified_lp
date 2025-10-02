@@ -1,69 +1,15 @@
-import { useState } from "react";
-import { Navigate, Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
-import "./App.css";
-import AdminDashboard from "./components/Dashboard/AdminDashboard";
-import ProfessorDashboard from "./components/Dashboard/ProfessorDashboard";
-import StudentDashboard from "./components/Dashboard/StudentDashboard";
-import Login from "./components/Login/Login";
-// Hardcoded users for demo
-const users = [
-  { username: 'prof1', password: '123', role: 'professor' },
-  { username: 'student1', password: '123', role: 'student' },
-  { username: 'admin1', password: '123', role: 'admin' },
-];
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home/Home';
 
-export default function App() {
-  const [user, setUser] = useState(null);
-  const [notes, setNotes] = useState([]);
-
-  function handleLogout() {
-    setUser(null);
-  }
-
-  function handleLogin(username, password, navigate) {
-    const foundUser = users.find(u => u.username === username && u.password === password);
-    if (foundUser) {
-      setUser(foundUser);
-      navigate('/dashboard');
-    } else {
-      alert('Invalid username or password');
-    }
-  }
-
+const App = () => {
   return (
-    <Router>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-sky-100 to-indigo-50 flex items-center justify-center p-6">
-        <div className="w-full max-w-4xl bg-white shadow-2xl rounded-2xl p-8 border border-slate-200">
-          <header className="flex items-center justify-between mb-8 border-b pb-4">
-            <h1 className="text-3xl font-bold text-sky-700 tracking-tight">Campus Notes</h1>
-          </header>
-
-          <Routes>
-            <Route path="/" element={<Login handleLogin={handleLogin} />} />
-
-            <Route path="/dashboard" element={
-              user ? (
-                <DashboardRouter user={user} notes={notes} setNotes={setNotes} handleLogout={handleLogout} />
-              ) : (
-                <Navigate to="/" />
-              )
-            } />
-
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
-function DashboardRouter({ user, notes, setNotes, handleLogout }) {
-  const navigate = useNavigate();
-
-  // Redirect role-specific dashboards
-  if (user.role === 'professor') return <ProfessorDashboard user={user} notes={notes} setNotes={setNotes} handleLogout={handleLogout} navigate={navigate} />;
-  if (user.role === 'student') return <StudentDashboard user={user} notes={notes} handleLogout={handleLogout} navigate={navigate} />;
-  if (user.role === 'admin') return <AdminDashboard user={user} notes={notes} setNotes={setNotes} handleLogout={handleLogout} navigate={navigate} />;
-
-  return <Navigate to="/" />;
-}
+export default App;
