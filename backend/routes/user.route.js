@@ -15,7 +15,7 @@ router.post('/signup' , async(req,res)=>{
     return res.json({login : 'true'});
 });
 
-router.post('/signin' , async(req,res)=>{
+router.post('/login' , async(req,res)=>{
     const {instituteMail , password} = req.body;
     try {
         const token = await User.matchPasswordAndCreateToken(instituteMail,password);
