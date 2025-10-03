@@ -10,9 +10,9 @@ const Header = () => {
     <div className="header">
       {/* Left: Text content */}
       <div className="header-text">
-        <h3>Welcome, To Vayu<span>notics...</span></h3>
+        <h3>Welcome, To Map<span>Iq</span></h3>
         <p>
-          Exploring innovation and technology with advanced drone solutions.
+          A smart, gamified platform that maps your learning, piques your mind, and gets stuff DONE.
         </p>
         <button 
           onClick={() => navigate('/explore')} 
@@ -24,7 +24,7 @@ const Header = () => {
 
       {/* Right: Animation */}
       <DotLottieReact
-        src="/Drone.lottie" 
+        src="/learning.lottie" 
         loop
         autoplay
         className="header-animation"

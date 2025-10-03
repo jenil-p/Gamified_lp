@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="Nav">
             <nav>
                 <h1>
-                    <NavLink to="/" onClick={closeMobileMenu}>Vayu<span>notics</span></NavLink>
+                    <NavLink to="/" onClick={closeMobileMenu}>Map<span>Iq</span></NavLink>
                 </h1>
 
                 {/* Hamburger Icon for mobile */}
