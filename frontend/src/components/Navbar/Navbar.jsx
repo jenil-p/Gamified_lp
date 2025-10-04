@@ -4,17 +4,10 @@ import "./Navbar.css";
 
 const Navbar = () => {
     const navigate = useNavigate();
-
-    // State to manage whether the mobile navigation is open or closed
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    
-    // Ref to the mobile menu for detecting outside clicks
     const menuRef = useRef(null);
-
-    // This effect handles closing the mobile menu when a user clicks outside of it
     useEffect(() => {
         const handleClickOutside = (event) => {
-            // Check if the menu is open and the click is outside the menu and not on the menu icon
             if (menuRef.current && !menuRef.current.contains(event.target) && !event.target.closest('.menu-icon')) {
                 setIsMenuOpen(false);
             }
@@ -24,9 +17,7 @@ const Navbar = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []); // Empty dependency array ensures this runs only once
-
-    // Helper function to close the menu whenever a link is clicked
+    }, []);
     const closeMobileMenu = () => setIsMenuOpen(false);
 
     const handleSignIn = () => {

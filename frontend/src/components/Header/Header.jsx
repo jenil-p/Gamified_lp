@@ -24,7 +24,7 @@ const Header = () => {
 
       {/* Right: Animation */}
       <DotLottieReact
-        src="/Drone.lottie" 
+        src="/Girl.lottie" 
         loop
         autoplay
         className="header-animation"

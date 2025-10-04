@@ -15,6 +15,7 @@ router.post('/signup' , async(req,res)=>{
     return res.json({login : 'true'});
 });
 
+
 router.post('/signin' , async(req,res)=>{
     const {instituteMail , password} = req.body;
     try {
@@ -26,6 +27,7 @@ router.post('/signin' , async(req,res)=>{
         return res.render('signin' , {error : 'Incorrect instituteMail or password!'});
     }
 });
+
 
 router.get('/logout' , (req,res)=>{
     res.clearCookie("token");
