@@ -13,6 +13,10 @@
     "@lottiefiles/dotlottie-react": "^0.17.3",
     "@tailwindcss/vite": "^4.1.14",
     "axios": "^1.12.2",
+<<<<<<< HEAD
+=======
+    "cors": "^2.8.5",
+>>>>>>> 5baedc449f69cce4c5e1c264acf4e537ee9db797
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",

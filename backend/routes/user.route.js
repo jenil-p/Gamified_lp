@@ -15,8 +15,12 @@ router.post('/signup' , async(req,res)=>{
     return res.json({login : 'true'});
 });
 
+<<<<<<< HEAD:backend/routes/user.js
 
 router.post('/signin' , async(req,res)=>{
+=======
+router.post('/login' , async(req,res)=>{
+>>>>>>> 5baedc449f69cce4c5e1c264acf4e537ee9db797:backend/routes/user.route.js
     const {instituteMail , password} = req.body;
     try {
         const token = await User.matchPasswordAndCreateToken(instituteMail,password);

@@ -18,9 +18,14 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.20.0",
+<<<<<<< HEAD
     "mongoose": "^8.19.0",
     "multer": "^2.0.2",
     "nodemon": "^3.1.10",
     "validator": "^13.15.15"
+=======
+    "mongoose": "^8.18.3",
+    "multer": "^2.0.2"
+>>>>>>> 5baedc449f69cce4c5e1c264acf4e537ee9db797
   }
 }
