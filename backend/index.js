@@ -7,9 +7,11 @@ const cookieParser = require('cookie-parser');
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
 const cors = require("cors");
 
-
-const userRoutes = require('./routes/user.route');
+// routes import...
+const authRoutes = require('./routes/auth.route');
 const pdfmoduleRoutes = require('./routes/pdf.route');
+const roleRoutes = require('./routes/role.route');
+const roleuserRoutes = require('./routes/roleuser.route');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,8 +29,10 @@ app.use(cors({
     credentials: true
 }));
 
-app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 app.use('/pdf', pdfmoduleRoutes);
+app.use('/role' , roleRoutes);
+app.use('/assign' , roleuserRoutes);
 
 app.get('/', (req, res) => {
     res.send("This is a way to learn through games...")

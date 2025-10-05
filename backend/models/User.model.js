@@ -7,10 +7,8 @@ const userSchema = new mongoose.Schema({
     instituteMail : {type: String , required: true , unique : true},
     password : {type : String},
     salt: { type: String},
-    role : {type : String , required : true , enum: ["STUDENT", "ADMIN","FACULTY"], default: "STUDENT"},
     contactNumber : {type : Number},
 })
-
 
 userSchema.pre("save", function (next) {
     const user = this;

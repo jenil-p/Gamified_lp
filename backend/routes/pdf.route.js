@@ -1,9 +1,12 @@
-const pdfModule = require('../models/Pdf');
-const User = require('../models/User');
+const pdfModule = require('../models/Pdf.model');
+const User = require('../models/User.model');
+
 const { Router } = require('express');
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+
+const { verifyToken } = require('../middlewares/authentication');
 
 const router = Router();
 const storage = multer.diskStorage({
@@ -12,7 +15,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post('/upload' , upload.single('pdf'),async(req , res)=>{
+router.post('/upload' , verifyToken , upload.single('pdf') , async(req , res)=>{
     const {title ,classID , subjectID, user} = req.body;
     try {
         const uploadedbyUser = await User.findById(user);
@@ -31,7 +34,7 @@ router.post('/upload' , upload.single('pdf'),async(req , res)=>{
     }
 })
 
-router.delete('/:id' , async(req , res)=>{
+router.delete('/:id' , verifyToken , async(req , res)=>{
     try{
         const pdfToBeDeleted = await pdfModule.findById(req.params.id);
         if(!pdfToBeDeleted)return res.status(400).json({message : "no such pdf"});
