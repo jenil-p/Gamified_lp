@@ -5,22 +5,20 @@ const UserRole = require('../models/userRole.model');
 async function assignRoleToUser(req , res) {
     const {role , userAssign} = req.body;
 
-    const isUser = await User.findOne({_id : userAssign});
+    const isUser = await User.findOne({instituteMail : userAssign});
     if(!isUser){
         return res.status(404).json({message : "no such user found !"});
     }
 
-    const isRole = await Role.findOne({_id : role});
+    const isRole = await Role.findOne({role : role});
     if(!isRole){
         return res.status(404).json({message : "no such role found !"});
     }
-
-    const isAlreadyAssigned = await UserRole.findOne({role : role , user : userAssign});
+    const isAlreadyAssigned = await UserRole.findOne({role : isRole._id , user : isUser._id});
 
     if(!isAlreadyAssigned){
         await UserRole.create({
-            role : role,
-            user : userAssign
+            role : isRole._id , user : isUser._id
         })
         return res.status(400).json({message : "User assigned to this role."});
     }else{
@@ -29,13 +27,16 @@ async function assignRoleToUser(req , res) {
 }
 
 async function takeRoleFromUser(req , res) {
-    const { entry } = req.body;
+    const { UserToDeassignEmail , roleName } = req.body;
 
-    const findEntry = await UserRole.findOne({_id : entry});
+    const role = await Role.findOne({role : roleName});
+    const user = await User.findOne({instituteMail : UserToDeassignEmail});
+
+    const findEntry = await UserRole.findOne({role : role._id , user : user._id});
     if(!findEntry){
         return res.status(404).json({message : "no such entry here"});
     }
-    await UserRole.findByIdAndDelete(entry);
+    await UserRole.findByIdAndDelete(findEntry._id);
     return res.status(400).json({message : "user de-assigned from this role !"});
 }
 
