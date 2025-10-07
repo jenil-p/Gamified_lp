@@ -1,65 +1,50 @@
-import { useState } from "react";
-import { login } from "../api/api";
-import { useAuth } from "../context/AuthContext";
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
-export default function Login() {
-    const [form, setForm] = useState({ instituteMail: "", password: "" });
-    const { loginUser } = useAuth();
+function Login() {
+    const { handleLogin } = useContext(AuthContext);
+    const [formData, setFormData] = useState({ instituteMail: '', password: '' });
 
     const handleChange = (e) =>
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const res = await login(form);
-            loginUser(res.data); // store user in context
-            alert("Login successful!");
-        } catch (err) {
-            alert("Invalid credentials. Please try again.");
-        }
+        await handleLogin(formData.instituteMail, formData.password);
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold text-center text-blue-900 mb-6">
-                    Login
-                </h2>
-
-                <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-bold mb-4">Login</h2>
+            <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+                <div>
+                    <label>Email</label>
                     <input
+                        type="email"
                         name="instituteMail"
-                        placeholder="Institute Email"
+                        value={formData.instituteMail}
                         onChange={handleChange}
-                        value={form.instituteMail}
-                        className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-2 border rounded"
+                        required
                     />
-
+                </div>
+                <div>
+                    <label>Password</label>
                     <input
-                        name="password"
                         type="password"
-                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
                         onChange={handleChange}
-                        value={form.password}
-                        className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-2 border rounded"
+                        required
                     />
-
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition"
-                    >
-                        Login
-                    </button>
-                </form>
-
-                <p className="text-center text-sm text-gray-600 mt-4">
-                    Don't have an account?{" "}
-                    <a href="/signup" className="text-blue-600 hover:underline">
-                        Signup
-                    </a>
-                </p>
-            </div>
+                </div>
+                <button type="submit" className="bg-blue-600 text-white p-2 rounded">
+                    Login
+                </button>
+            </form>
         </div>
     );
 }
+
+export default Login;
