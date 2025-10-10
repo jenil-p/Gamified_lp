@@ -12,6 +12,7 @@ const authRoutes = require('./routes/auth.route');
 const pdfmoduleRoutes = require('./routes/pdf.route');
 const roleRoutes = require('./routes/role.route');
 const roleuserRoutes = require('./routes/roleuser.route');
+const userRoutes = require('./routes/user.route');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,13 +30,14 @@ app.use(cors({
     credentials: true
 }));
 
-app.use('/auth', authRoutes);
-app.use('/pdf', pdfmoduleRoutes);
-app.use('/role' , roleRoutes);
-app.use('/assign' , roleuserRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/pdf', pdfmoduleRoutes);
+app.use('/api/role', roleRoutes);
+app.use('/api/assign', roleuserRoutes);
+app.use('/api/user', userRoutes);
 
 app.get('/', (req, res) => {
     res.send("This is a way to learn through games...")
 })
 
-app.listen(PORT, () => console.log(`app listining at PORT:${PORT}`));
+app.listen(PORT, () => console.log(`app listening at PORT:${PORT}`));

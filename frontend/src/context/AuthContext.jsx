@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { login, logout } from '../services/api';
+import { logout } from '../services/api';
 
 export const AuthContext = createContext();
 
@@ -13,23 +13,10 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            // Optionally verify token with backend
             setUser({ token });
         }
         setLoading(false);
     }, []);
-
-    const handleLogin = async (instituteMail, password) => {
-        try {
-            const response = await login({ instituteMail, password });
-            localStorage.setItem('token', response.data.token);
-            setUser({ token: response.data.token });
-            toast.success('Login successful!');
-            navigate('/dashboard');
-        } catch (error) {
-            toast.error(error.response?.data?.message || 'Login failed');
-        }
-    };
 
     const handleLogout = async () => {
         try {
@@ -44,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, handleLogin, handleLogout, loading }}>
+        <AuthContext.Provider value={{ user, setUser, handleLogout, loading }}>
             {children}
         </AuthContext.Provider>
     );

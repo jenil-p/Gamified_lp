@@ -1,36 +1,45 @@
-const { validateToken } = require("../services/authentication");
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-function checkForAuthenticationCookie(cookieName) {
-    return (req,res,next) => {
-        const tokenCookieValue = req.cookies[cookieName];
-        if(!tokenCookieValue) return next();
-
-        try {
-            const userPayload = validateToken(tokenCookieValue);
-            req.user = userPayload;
-        } catch (error) {}
-
-        return next();
-    };
+const checkForAuthenticationCookie = (cookieName) => {
+  return (req, res, next) => {
+    const token = req.cookies[cookieName];
+    console.log('Cookie token:', token);
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('Cookie decoded:', decoded);
+        req.user = decoded;
+      } catch (err) {
+        console.error('Cookie token verification error:', err.message);
+      }
+    }
+    next();
+  };
 };
 
 const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ message: "No token provided" });
+  console.log('Headers:', req.headers);
+  let token = req.headers.authorization?.split(' ')[1];
 
-  const token = authHeader.split(" ")[1];
-  if (!token) return res.status(401).json({ message: "No token provided" });
+  if (!token && req.cookies.token) {
+    token = req.cookies.token;
+    console.log('Using cookie token:', token);
+  }
+
+  if (!token) {
+    console.log('No token provided');
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
+    console.log('Decoded token:', decoded);
+    req.userId = decoded._id; // Match _id from token payload
     next();
   } catch (err) {
-    return res.status(403).json({ message: "Invalid or expired token" });
+    console.error('Token verification error:', err.message);
+    return res.status(403).json({ message: `Invalid or expired token: ${err.message}` });
   }
 };
 
-module.exports = {
-    checkForAuthenticationCookie, verifyToken
-}
+module.exports = { checkForAuthenticationCookie, verifyToken };

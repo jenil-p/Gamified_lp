@@ -1,16 +1,36 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthContext';
+import { login } from '../services/api';
 
 function Login() {
-    const { handleLogin } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
     const [formData, setFormData] = useState({ instituteMail: '', password: '' });
+    const navigate = useNavigate();
 
     const handleChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await handleLogin(formData.instituteMail, formData.password);
+        try {
+            const response = await login(formData);
+            console.log('Login response:', response); // Debug full response
+            const token = response.data.token;
+            if (!token) {
+                console.error('No token in response:', response.data);
+                throw new Error('No token in response');
+            }
+            localStorage.setItem('token', token);
+            console.log('Token stored in localStorage:', localStorage.getItem('token')); // Debug
+            setUser({ token, instituteMail: formData.instituteMail });
+            toast.success('Login successful!');
+            navigate('/dashboard');
+        } catch (error) {
+            console.error('Login error:', error.response || error);
+            toast.error(error.response?.data?.message || 'Login failed');
+        }
     };
 
     return (
