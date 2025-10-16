@@ -1,3 +1,16 @@
-export default function Home() {
-    return <h1 className="text-center mt-10 text-4xl">Welcome to Gamified IP</h1>;
+import React from 'react'
+import Header from '../pages/Header'
+import Sketch from '../pages/Sketch'
+import B from '../components/B'
+
+const Home = () => {
+  return (
+    <>
+    <Header/>
+    <B/>
+    {/* <Sketch/> */}
+    </>
+  )
 }
+
+export default Home

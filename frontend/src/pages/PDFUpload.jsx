@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthContext';
 import { uploadPDF } from '../services/api';
+import './PDFUpload.css'
 
 function PDFUpload() {
     const { user } = useContext(AuthContext);
@@ -41,9 +42,10 @@ function PDFUpload() {
     if (!user) return <div>Please log in to upload PDFs.</div>;
 
     return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Upload PDF</h2>
-            <form onSubmit={handleSubmit} className="max-w-md space-y-4">
+        <>
+            <h2 className="text">Upload PDF</h2>
+        <div className="container2">
+            <form onSubmit={handleSubmit} className="form">
                 <div>
                     <label>Title</label>
                     <input
@@ -51,7 +53,7 @@ function PDFUpload() {
                         name="title"
                         value={formData.title}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
+                        className="input1"
                         required
                     />
                 </div>
@@ -62,7 +64,7 @@ function PDFUpload() {
                         name="classID"
                         value={formData.classID}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
+                        className="input1"
                         required
                     />
                 </div>
@@ -73,7 +75,7 @@ function PDFUpload() {
                         name="subjectID"
                         value={formData.subjectID}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
+                        className="input1"
                         required
                     />
                 </div>
@@ -84,15 +86,16 @@ function PDFUpload() {
                         name="file"
                         accept="application/pdf"
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
+                        className="input1"
                         required
                     />
                 </div>
-                <button type="submit" className="bg-blue-600 text-white p-2 rounded">
+                <button type="submit" className="btn">
                     Upload PDF
                 </button>
             </form>
         </div>
+        </>
     );
 }
 

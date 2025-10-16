@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthContext';
 import { login } from '../services/api';
+import './Login.css'; // Import the CSS file
 
 function Login() {
     const { setUser } = useContext(AuthContext);
@@ -34,36 +35,37 @@ function Login() {
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Login</h2>
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-                <div>
+        <>
+        <div className="login-container">
+            <form onSubmit={handleSubmit} className="login-form">
+                <h2>Login</h2>
+                <div className="form-group">
                     <label>Email</label>
                     <input
                         type="email"
                         name="instituteMail"
                         value={formData.instituteMail}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Password</label>
                     <input
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
                         required
                     />
                 </div>
-                <button type="submit" className="bg-blue-600 text-white p-2 rounded">
+                <button type="submit" className="login-button">
                     Login
                 </button>
             </form>
         </div>
+
+        </>
     );
 }
 

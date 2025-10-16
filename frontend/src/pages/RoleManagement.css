@@ -1,0 +1,97 @@
+.role-management-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+}
+
+.heading {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.forms-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.form-card {
+  flex: 1 1 calc(33.333% - 20px);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-card:hover {
+  transform: translateY(-3px);
+}
+
+h3 {
+  color: #1a202c;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: #D87D4A;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #D87D4A;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #ffffff;
+  color: black ;
+  border: 1px solid black;
+}
+
+.btn.remove {
+  background: #D87D4A;
+}
+
+.btn.remove:hover {
+  background: #ffffff;
+  color: black ;
+  border: 1px solid black;}
+
+.no-user {
+  text-align: center;
+  color: #666;
+  margin-top: 50px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .form-card {
+    flex: 1 1 100%;
+  }
+}

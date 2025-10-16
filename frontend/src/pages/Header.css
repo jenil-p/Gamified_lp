@@ -1,0 +1,99 @@
+/* --- Main Header Container (Flexbox Layout) --- */
+.header {
+  display: flex; /* Establishes a flex container */
+  flex-direction: row; /* Arranges items side-by-side */
+  align-items: center; /* Vertically centers the text and animation */
+  justify-content: space-between; /* Pushes items to opposite ends */
+  
+  width: 90%; /* Takes up 90% of the screen width */
+  min-height: 60vh; /* A good height to prevent it from being too short */
+  margin: 50px auto 0 auto; /* Top margin, and auto on sides to center it */
+  padding: 2rem;
+  background-color: #fdfafa;
+  border-radius: 10px; /* Optional: adds nice rounded corners */
+  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+}
+
+/* --- Left Side: Text Content --- */
+.header-text {
+  flex: 1; /* Allows the text block to grow and shrink */
+  max-width: 50%; /* Prevents it from getting too wide */
+  padding-right: 2rem; /* Adds space between text and animation */
+  color: rgb(0, 0, 0);
+  text-align: left;
+}
+
+.type-text {
+  font-size: 2.5rem; /* Larger, more impactful text */
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.4;
+  margin-left: 25px;
+  margin-bottom: 1.5rem; /* Space between text and button */
+}
+
+/* --- Right Side: Lottie Animation --- */
+.header-animation-container {
+  flex: 1; /* Allows the animation block to grow and shrink */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 45%; /* Controls the size of the animation container */
+}
+
+.header-animation {
+  width: 100%; /* Fills its container */
+  height: auto;
+}
+
+/* --- Button Styling --- */
+.explore-btn {
+  background-color: #D87D4A;
+  border: 1px solid transparent; /* Start with a transparent border */
+  padding: 12px 24px; /* More padding for a better look */
+  border-radius: 8px; /* Softer corners */
+  cursor: pointer;
+  color: white;
+  margin-left: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.explore-btn:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+/* --- RESPONSIVE STYLES for Mobile (768px and below) --- */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column-reverse; /* Stacks items vertically, animation on top */
+    padding: 1rem;
+    text-align: center; /* Center-aligns all text for mobile */
+    min-height: auto; /* Let content define the height */
+  }
+
+  .header-text {
+    max-width: 100%; /* Text should take full width */
+    padding-right: 0; /* Remove side padding */
+    text-align: center; /* Ensure text inside is also centered */
+  }
+
+  .type-text {
+    font-size: 1.8rem; /* Smaller font size for mobile */
+  }
+
+  .header-animation-container {
+    max-width: 80%; /* Control animation size on mobile */
+    margin-bottom: 2rem; /* Add space between animation and text */
+  }
+}
+
+.header-text h5
+{
+  margin-left: 25px;
+  margin-bottom: 15px;
+  font-family:'Times New Roman', Times, serif;
+}

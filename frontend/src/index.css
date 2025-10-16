@@ -1,2 +1,5 @@
 /* ===== Global Reset ===== */
-@import "tailwindcss";
+body {
+    background-color: white;
+  }
+  

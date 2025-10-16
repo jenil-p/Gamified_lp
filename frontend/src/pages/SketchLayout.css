@@ -1,0 +1,134 @@
+/* Overall container for the layout */
+.layout-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top of the container */
+    padding: 40px;
+    gap: 50px; /* Space between the left and right sections */
+    min-height: 80vh; /* Ensure it takes up sufficient vertical space */
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Left section for the overlapping image and div */
+.left-section {
+    position: relative; /* Allows child elements to be positioned relative to this */
+    width: 350px; /* Adjust as needed */
+    height: 250px; /* Adjust as needed */
+    display: flex; /* Helps in positioning for sketch accuracy */
+    justify-content: center;
+    align-items: center;
+}
+
+.overlapping-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: absolute; /* Position explicitly */
+    top: 0;
+    left: 0;
+    z-index: 2; /* Bring image to front */
+}
+
+.overlapping-div {
+    background-color: #fff;
+    border: 2px solid #3498db;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    position: absolute; /* Position explicitly */
+    bottom: 0; /* Adjust these values to control overlap */
+    right: 0; /* Adjust these values to control overlap */
+    transform: translate(20%, 20%); /* Fine-tune overlap position */
+    z-index: 1; /* Keep div behind image */
+}
+
+/* Right section for text and rectangles */
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align text and rectangles to the left */
+    gap: 15px; /* Space between elements */
+    padding-top: 20px; /* Adjust if you want it slightly lower than the image */
+}
+
+.right-heading {
+    font-size: 36px;
+    color: #2c3e50;
+    margin: 0; /* Remove default margin */
+}
+
+.right-paragraph {
+    font-size: 18px;
+    color: #34495e;
+    margin: 0; /* Remove default margin */
+}
+
+.right-rectangle {
+    width: 80px;
+    height: 50px;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.top-rectangle {
+    /* Specific styles for the top rectangle if needed */
+}
+
+.bottom-rectangle {
+    /* Specific styles for the bottom rectangle if needed */
+    background-color: #a2d9ce; /* Different color for distinction */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .left-section {
+        width: 100%;
+        height: auto; /* Allow height to adjust */
+        max-width: 350px;
+    }
+
+    .overlapping-image,
+    .overlapping-div {
+        position: static; /* Remove absolute positioning on smaller screens */
+        transform: none;
+        margin-bottom: 20px; /* Add space between them */
+    }
+
+    .overlapping-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .overlapping-div {
+        width: 80%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .right-section {
+        align-items: center;
+        text-align: center;
+    }
+}
