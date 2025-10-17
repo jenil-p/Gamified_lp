@@ -31,8 +31,8 @@ export const getUserRoles = () => api.get('/user/roles');
 export const addRole = (data) => api.post('/role', data);
 
 // RoleUser APIs
-export const assignRole = (data) => api.post('/roleuser', data);
-export const removeRole = (data) => api.delete('/roleuser', { data });
+export const assignRole = (data) => api.post('/assign', data);
+export const removeRole = (data) => api.delete('/assign', { data });
 
 // PDF APIs
 export const uploadPDF = (formData) =>

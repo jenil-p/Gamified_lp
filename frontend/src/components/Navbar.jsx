@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 function Navbar() {
-  const { user, handleLogout } = useContext(AuthContext);
+  const { user, roles, handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
@@ -14,8 +14,8 @@ function Navbar() {
           {user ? (
             <>
               <Link to="/dashboard">Dashboard</Link>
-              <Link to="/roles">Role Management</Link>
-              <Link to="/pdf/upload">Upload PDF</Link>
+              {Array.isArray(roles) && roles.includes('admin') && <Link to="/roles">Role Management</Link>}
+              {Array.isArray(roles) && roles.includes('professor') && <Link to="/pdf/upload">Upload PDF</Link>}
               <Link to="/pdf/list">PDF List</Link>
               <button onClick={handleLogout} className="logout-btn">Logout</button>
             </>
@@ -23,12 +23,11 @@ function Navbar() {
             <>
               <Link to="/" className="nav-link">Home</Link>
               <Link to="/login" className="nav-link">Login</Link>
-              <Link to="/signup" className="nav-link">Signup</Link>
-            </>
+              {roles.includes('admin') && <Link to="/signup" className="nav-link">Signup</Link>}            </>
           )}
         </div>
       </div>
-      <hr/>
+      <hr />
       <style jsx>{`
         .navbar {
           background: #fff;
