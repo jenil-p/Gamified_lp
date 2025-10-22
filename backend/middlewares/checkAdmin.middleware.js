@@ -1,12 +1,16 @@
 const UserRole = require('../models/userRole.model');
 const Role = require('../models/Role.model');
+const jwt = require('jsonwebtoken');
 
 async function checkAdmin(req, res, next) {
   try {
-    // const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization;
     // console.log(authHeader);
-    const userId = req.body.user || req.user?._id;  // this will be changed when connected to frontend ... to upper commented thing...
-
+    const decoded = jwt.verify(authHeader, process.env.JWT_SECRET);
+    // console.log('Decoded token:', decoded);
+    req.userId = decoded._id;
+    // const userId = req.body.user || req.user?._id;  // this will be changed when connected to frontend ... to upper commented thing...
+    const userId = req.userId;
     if (!userId) {
       return res.status(400).json({ message: "User ID missing" });
     }

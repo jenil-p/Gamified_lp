@@ -40,4 +40,22 @@ async function takeRoleFromUser(req , res) {
     return res.status(400).json({message : "user de-assigned from this role !"});
 }
 
-module.exports = { assignRoleToUser, takeRoleFromUser };
+async function findUsersRole(req , res) {
+    const { user } = req.body;
+
+    const userRoleEntries = await UserRole.find({user}).populate('role');
+
+    if(userRoleEntries.length == 0){
+        return res.json({message : "no role assigned to this user"});
+    }else{
+        let roles = [];
+        for (let index = 0; index < userRoleEntries.length; index++) {
+            const entry = userRoleEntries[index];
+            roles.push(entry.role.role);
+        }
+        console.log(roles);
+        return roles;
+    }
+}
+
+module.exports = { assignRoleToUser, takeRoleFromUser , findUsersRole };
