@@ -4,7 +4,6 @@ async function createUser(req, res) {
     const { fullname, instituteMail, password } = req.body;
     const findUser = await User.findOne({ instituteMail });
     if (findUser) {
-        console.log(findUser);
         return res.status(409).json({ message: "User already exists on the system with this email" });
     }
     await User.create({
@@ -20,7 +19,6 @@ async function validateUserLogin(req, res) {
     try {
         const token = await User.matchPasswordAndCreateToken(instituteMail, password);
         res.cookie('token', token, { httpOnly: true }); // Keep for compatibility
-        console.log('Login successful, token:', token); // Debug
         return res.status(200).json({ message: 'Login successful!', token });
     } catch (error) {
         return res.status(400).json({ message: "incorrect email or password!" });
