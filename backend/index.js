@@ -33,10 +33,14 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
-        if (file.mimetype === 'application/pdf') {
-            cb(null, true); // Accept only PDF files
+        if (file.mimetype === 'application/pdf' ||
+            file.mimetype === 'application/vnd.ms-excel' ||
+            file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'||
+            file.mimetype === 'text/csv'
+        ) {
+            cb(null, true); // Accept only PDF and excel files (excels for mass account creating for ease of admin work...)
         } else {
-            cb(new Error('Only PDF files are allowed'), false);
+            cb(new Error('Only PDFs and CSVs files are allowed'), false);
         }
     },
 });
@@ -64,7 +68,7 @@ app.use(
 );
 
 // Routes
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', upload.single('excel') , authRoutes);
 app.use('/api/pdf', upload.single('pdf'), pdfmoduleRoutes); // Apply multer to pdf routes
 app.use('/api/role', roleRoutes);
 app.use('/api/assign', roleuserRoutes);
